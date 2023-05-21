@@ -18,7 +18,6 @@ import 'package:location/location.dart' as loc;
 import 'package:soowgood/common/resources/my_string.dart';
 import 'package:http/http.dart' as http;
 
-
 class BeneficiaryMainScreen extends StatefulWidget {
   const BeneficiaryMainScreen({Key? key}) : super(key: key);
 
@@ -27,7 +26,6 @@ class BeneficiaryMainScreen extends StatefulWidget {
 }
 
 class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
-
   CustomProgressDialog progressDialog = CustomProgressDialog();
 
   int currentPageNumber = 0;
@@ -36,7 +34,7 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
   final PageStorageBucket bucket = PageStorageBucket();
 
   late geo.LocationPermission permission;
-  loc.Location location =  loc.Location();
+  loc.Location location = loc.Location();
 
   BeneficiaryAddressModel addressModel = BeneficiaryAddressModel();
 
@@ -60,37 +58,68 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
       child: WillPopScope(
         onWillPop: showExitPopup,
         child: Scaffold(
-          body: pages.isNotEmpty ? PageStorage(bucket: bucket, child: currentPage) : const SizedBox(),
+          body: pages.isNotEmpty
+              ? PageStorage(bucket: bucket, child: currentPage)
+              : const SizedBox(),
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             items: [
               BottomNavigationBarItem(
-                  icon: Image(image: homeIcon, color: currentPageNumber == 0 ?  MyColor.themeTealBlue : MyColor.hintColor, width: 40.0, height: 40.0,),
+                  icon: Image(
+                    image: homeIcon,
+                    color: currentPageNumber == 0
+                        ? MyColor.themeTealBlue
+                        : MyColor.hintColor,
+                    width: 40.0,
+                    height: 40.0,
+                  ),
                   // icon: Icon(Icons.home, color: currentPageNumber == 0 ?  MyColor.themeTealBlue : MyColor.inactiveOtp),
                   label: ""),
-
-
               BottomNavigationBarItem(
-                  icon: Image(image: dashboardIcon, color: currentPageNumber == 1 ?  MyColor.themeTealBlue : MyColor.hintColor, width: 40.0, height: 40.0,),
+                  icon: Image(
+                    image: dashboardIcon,
+                    color: currentPageNumber == 1
+                        ? MyColor.themeTealBlue
+                        : MyColor.hintColor,
+                    width: 40.0,
+                    height: 40.0,
+                  ),
                   label: ""),
-
               BottomNavigationBarItem(
-                  icon: Image(image: appointmentBarIcon, color: currentPageNumber == 2 ?  MyColor.themeTealBlue : MyColor.hintColor, width: 40.0, height: 40.0,),
+                  icon: Image(
+                    image: appointmentBarIcon,
+                    color: currentPageNumber == 2
+                        ? MyColor.themeTealBlue
+                        : MyColor.hintColor,
+                    width: 40.0,
+                    height: 40.0,
+                  ),
                   // icon: Icon(Icons.pa, color: currentPageNumber == 2 ? MyColor.themeTealBlue : MyColor.inactiveOtp),
                   label: ""),
-
               BottomNavigationBarItem(
-                  icon: Image(image: doctorIcon, color: currentPageNumber == 3 ?  MyColor.themeTealBlue : MyColor.hintColor, width: 40.0, height: 40.0,),
+                  icon: Image(
+                    image: doctorIcon,
+                    color: currentPageNumber == 3
+                        ? MyColor.themeTealBlue
+                        : MyColor.hintColor,
+                    width: 40.0,
+                    height: 40.0,
+                  ),
                   // icon: Icon(Icons.favorite, color: currentPageNumber == 3 ? MyColor.themeTealBlue : MyColor.inactiveOtp),
                   label: ""),
-
               BottomNavigationBarItem(
-                  icon: Image(image: profileIcon, color: currentPageNumber == 4 ?  MyColor.themeTealBlue : MyColor.hintColor, width: 40.0, height: 40.0,),
+                  icon: Image(
+                    image: profileIcon,
+                    color: currentPageNumber == 4
+                        ? MyColor.themeTealBlue
+                        : MyColor.hintColor,
+                    width: 40.0,
+                    height: 40.0,
+                  ),
                   // icon: Icon(Icons.favorite, color: currentPageNumber == 3 ? MyColor.themeTealBlue : MyColor.inactiveOtp),
                   label: ""),
-
             ],
-            onTap: (int index){
+            onTap: (int index) {
               setState(() {
                 currentPage = pages[index];
                 currentPageNumber = index;
@@ -102,7 +131,6 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
               }*/
             },
           ),
-
         ),
       ),
     );
@@ -118,20 +146,14 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
         children: [
           Container(
             decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: patientBgImg,
-                    fit: BoxFit.cover
-                )
-            ),
+                image: DecorationImage(image: patientBgImg, fit: BoxFit.cover)),
           ),
-
           Container(
             color: MyColor.teal,
           )
         ],
       ),
     );
-
   }
 
   ///*
@@ -139,17 +161,17 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
   ///
   Widget notificationCountWidget() {
     return InkWell(
-      onTap: () async{
-       /* var nav = await Get.to(() => NotificationListScreen(userType: 'Customer',));
+      onTap: () async {
+        /* var nav = await Get.to(() => NotificationListScreen(userType: 'Customer',));
         if(nav == null){
           _getXController.hitNotificationCountApi();
         }*/
       },
-      child: Container(
+      child: SizedBox(
         width: 50,
         child: Stack(
           children: [
-            Positioned(
+            const Positioned(
               top: 0,
               bottom: 0,
               left: 5,
@@ -171,7 +193,7 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
                   color: MyColor.skyBlueLight,
                   borderRadius: BorderRadius.circular(9.0),
                 ),
-                child: Text(
+                child: const Text(
                   '0',
                   style: TextStyle(
                       color: Colors.black,
@@ -185,65 +207,98 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
         ),
       ),
     );
-
   }
 
   ///*
   ///
   /// check location permission is enable or not
   /// if not then request for location permission
-  void checkAndRequestPermissions() async{
+  void checkAndRequestPermissions() async {
     permission = await geo.Geolocator.checkPermission();
-    if (permission == geo.LocationPermission.denied ) {
+    if (permission == geo.LocationPermission.denied) {
       permission = await geo.Geolocator.requestPermission();
 
-      if (permission == geo.LocationPermission.denied) { //if permission denied by user then show dialog , why permission is required
+      if (permission == geo.LocationPermission.denied) {
+        //if permission denied by user then show dialog , why permission is required
         log('Location_Permission : LocationPermission.denied');
         showLocationPermssionDialog("denied");
         pages.clear();
-        currentPage = BeneficiaryHomeScreen(addressModel: addressModel,);
-        pages.add(BeneficiaryHomeScreen(addressModel: addressModel,));
+        currentPage = BeneficiaryHomeScreen(
+          addressModel: addressModel,
+        );
+        pages.add(BeneficiaryHomeScreen(
+          addressModel: addressModel,
+        ));
         pages.add(const BeneficiaryDashboardScreen());
-        pages.add( BeneficiaryAppointmentsScreen(callFrom: 'Main',));
-        pages.add( BeneficiaryDoctorsScreen(searchText: '',fromHome: 'false',));
+        pages.add(BeneficiaryAppointmentsScreen(
+          callFrom: 'Main',
+        ));
+        pages.add(BeneficiaryDoctorsScreen(
+          searchText: '',
+          fromHome: 'false',
+        ));
         pages.add(const BeneficiaryProfileScreen());
         setState(() {});
-
-      }
-      else if(permission == geo.LocationPermission.deniedForever){
+      } else if (permission == geo.LocationPermission.deniedForever) {
         log('Location_Permission : $permission');
-        showLocationPermssionDialog("deniedForever"); //if permission deniedForever by user then show dialog , why permission is required
+        showLocationPermssionDialog(
+            "deniedForever"); //if permission deniedForever by user then show dialog , why permission is required
         pages.clear();
-        currentPage = BeneficiaryHomeScreen(addressModel: addressModel,);
-        pages.add(BeneficiaryHomeScreen(addressModel: addressModel,));
+        currentPage = BeneficiaryHomeScreen(
+          addressModel: addressModel,
+        );
+        pages.add(BeneficiaryHomeScreen(
+          addressModel: addressModel,
+        ));
         pages.add(const BeneficiaryDashboardScreen());
-        pages.add( BeneficiaryAppointmentsScreen(callFrom: 'Main',));
-        pages.add( BeneficiaryDoctorsScreen(searchText: '',fromHome: 'false',));
+        pages.add(BeneficiaryAppointmentsScreen(
+          callFrom: 'Main',
+        ));
+        pages.add(BeneficiaryDoctorsScreen(
+          searchText: '',
+          fromHome: 'false',
+        ));
         pages.add(const BeneficiaryProfileScreen());
         setState(() {});
-
-      }
-      else if(permission == geo.LocationPermission.always || permission == geo.LocationPermission.whileInUse){
+      } else if (permission == geo.LocationPermission.always ||
+          permission == geo.LocationPermission.whileInUse) {
         log('Location_Permission : $permission');
         checkLocationService(); //if location is allow then check further permission i.e location service permission
         pages.clear();
-        currentPage = BeneficiaryHomeScreen(addressModel: addressModel,);
-        pages.add(BeneficiaryHomeScreen(addressModel: addressModel,));
+        currentPage = BeneficiaryHomeScreen(
+          addressModel: addressModel,
+        );
+        pages.add(BeneficiaryHomeScreen(
+          addressModel: addressModel,
+        ));
         pages.add(const BeneficiaryDashboardScreen());
-        pages.add( BeneficiaryAppointmentsScreen(callFrom: 'Main',));
-        pages.add( BeneficiaryDoctorsScreen(searchText: '',fromHome: 'false',));
+        pages.add(BeneficiaryAppointmentsScreen(
+          callFrom: 'Main',
+        ));
+        pages.add(BeneficiaryDoctorsScreen(
+          searchText: '',
+          fromHome: 'false',
+        ));
         pages.add(const BeneficiaryProfileScreen());
         setState(() {});
-
       }
-    }else{
+    } else {
       checkLocationService();
       pages.clear();
-      currentPage = BeneficiaryHomeScreen(addressModel: addressModel,);
-      pages.add(BeneficiaryHomeScreen(addressModel: addressModel,));
+      currentPage = BeneficiaryHomeScreen(
+        addressModel: addressModel,
+      );
+      pages.add(BeneficiaryHomeScreen(
+        addressModel: addressModel,
+      ));
       pages.add(const BeneficiaryDashboardScreen());
-      pages.add( BeneficiaryAppointmentsScreen(callFrom: 'Main',));
-      pages.add( BeneficiaryDoctorsScreen(searchText: '',fromHome: 'false',));
+      pages.add(BeneficiaryAppointmentsScreen(
+        callFrom: 'Main',
+      ));
+      pages.add(BeneficiaryDoctorsScreen(
+        searchText: '',
+        fromHome: 'false',
+      ));
       pages.add(const BeneficiaryProfileScreen());
       setState(() {});
     }
@@ -252,22 +307,20 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
   ///*
   ///
   /// check location service permission
-  void checkLocationService() async{
-    bool _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
-        log("checkLocationService 1$_serviceEnabled" );
+  void checkLocationService() async {
+    bool serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
+        log("checkLocationService 1$serviceEnabled");
         showLocationServiceDialog(); //if permission not given then show dialog with msg
-      }else{
-        log("checkLocationService 2$_serviceEnabled" );
+      } else {
+        log("checkLocationService 2$serviceEnabled");
         setInitialLocation(); //if permission is given then get user current location
       }
-    }else{
+    } else {
       setInitialLocation();
-
     }
-
   }
 
   ///*
@@ -281,17 +334,14 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
             msg: "To see near by Providers you have to turn On Location",
             okFunction: checkLocationService,
             cancelFunction: noFunction));
-
   }
 
   ///*
   ///
   ///
-  void noFunction(){
+  void noFunction() {
     Navigator.pop(Get.context!);
   }
-
-
 
   ///*
   ///
@@ -301,10 +351,12 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
         context: Get.context!,
         builder: (BuildContext context1) => PermissionDialog(
             my_context: Get.context!,
-            msg: "To use this App, required location permission. \n please allow location permission",
-            okFunction: permission == "deniedForever" ? checkLocationService : checkAndRequestPermissions,
+            msg:
+                "To use this App, required location permission. \n please allow location permission",
+            okFunction: permission == "deniedForever"
+                ? checkLocationService
+                : checkAndRequestPermissions,
             cancelFunction: noFunction));
-
   }
 
   ///*
@@ -313,9 +365,9 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
   void setInitialLocation() async {
     // progressDialog.showProgressDialog();
 
-    await geo.Geolocator.getCurrentPosition(desiredAccuracy: geo.LocationAccuracy.best)
+    await geo.Geolocator.getCurrentPosition(
+            desiredAccuracy: geo.LocationAccuracy.best)
         .then((geo.Position position) {
-
       setState(() {
         addressModel.latitude = position.latitude;
         addressModel.longitude = position.longitude;
@@ -328,16 +380,12 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
         // latitude = _currentPosition.latitude;
         // longitude = _currentPosition.longitude;
         getAddress(); //get address from latitude and longitude
-
-
       });
     }).catchError((e) {
       print(e);
       // progressDialog.close();
-
     });
   }
-
 
   ///*
   ///
@@ -345,19 +393,20 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
   /// get address from latitude and longitude using
   /// https://maps.google.com/maps/api/geocode/json?key=replace_your_map_key&language=en&latlng=latitude,longitude (complete url of Geocoding api calling)
   void getAddress() async {
-    String _host = 'https://maps.google.com/maps/api/geocode/json';
-    final url = '$_host?key=${MyString.googleApiKey}&language=en&latlng=${addressModel.latitude},${addressModel.longitude}';
+    String host = 'https://maps.google.com/maps/api/geocode/json';
+    final url =
+        '$host?key=${MyString.googleApiKey}&language=en&latlng=${addressModel.latitude},${addressModel.longitude}';
     log("URL ADDR$url");
 
-    if(addressModel.latitude != null && addressModel.longitude != null){
+    if (addressModel.longitude != null) {
       var response = await http.get(Uri.parse(url));
-      if(response.statusCode == 200) {
+      if (response.statusCode == 200) {
         print(response.body);
         Map data = jsonDecode(response.body);
-        String _formattedAddress = data["results"][0]["formatted_address"];
+        String formattedAddress = data["results"][0]["formatted_address"];
 
         List<dynamic> addressComponents =
-        data['results'][0]['address_components'];
+            data['results'][0]['address_components'];
 
         List<dynamic> countries = addressComponents
             .where((entry) => entry['types'].contains('country'))
@@ -375,11 +424,10 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
             .map((entry) => entry['long_name'])
             .toList();
 
-        addressModel.address = _formattedAddress;
+        addressModel.address = formattedAddress;
         addressModel.countryName = countries[0];
         addressModel.city = localities[0];
         addressModel.zipCode = postalCode[0];
-
 
         log("Main Address : ${addressModel.address}");
         log("Main Country : ${addressModel.countryName}");
@@ -388,11 +436,20 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
 
         // progressDialog.close();
         pages.clear();
-        currentPage = BeneficiaryHomeScreen(addressModel: addressModel,);
-        pages.add(BeneficiaryHomeScreen(addressModel: addressModel,));
+        currentPage = BeneficiaryHomeScreen(
+          addressModel: addressModel,
+        );
+        pages.add(BeneficiaryHomeScreen(
+          addressModel: addressModel,
+        ));
         pages.add(const BeneficiaryDashboardScreen());
-        pages.add( BeneficiaryAppointmentsScreen(callFrom: 'Main',));
-        pages.add( BeneficiaryDoctorsScreen(searchText: '',fromHome: 'false',));
+        pages.add(BeneficiaryAppointmentsScreen(
+          callFrom: 'Main',
+        ));
+        pages.add(BeneficiaryDoctorsScreen(
+          searchText: '',
+          fromHome: 'false',
+        ));
         pages.add(const BeneficiaryProfileScreen());
         setState(() {});
       }
@@ -401,48 +458,42 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
 
   Future<bool> showExitPopup() async {
     return await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Exit App',
-            style: TextStyle(
-                fontFamily: "poppins_regular",
-                fontWeight: FontWeight.bold
-            )),
-        content: Text('Do you want to exit SoowGood?',
-            style: TextStyle(
-                fontFamily: "poppins_regular",
-                fontSize: 14,
-                fontWeight: FontWeight.w600
-            )),
-        actions:[
-          ElevatedButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child:Text('No',
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Exit App',
                 style: TextStyle(
-                    color: Colors.white,
                     fontFamily: "poppins_regular",
-                    fontWeight: FontWeight.bold
-                )),
+                    fontWeight: FontWeight.bold)),
+            content: const Text('Do you want to exit SoowGood?',
+                style: TextStyle(
+                    fontFamily: "poppins_regular",
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600)),
+            actions: [
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: const Text('No',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: "poppins_regular",
+                        fontWeight: FontWeight.bold)),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 4.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(true);
+                  },
+                  child: const Text('Yes',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: "poppins_regular",
+                          fontWeight: FontWeight.bold)),
+                ),
+              ),
+            ],
           ),
-
-          Padding(
-            padding: const EdgeInsets.only(right: 4.0),
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop(true);
-              },
-              child:Text('Yes',
-                  style: TextStyle(
-                    color: Colors.white,
-                      fontFamily: "poppins_regular",
-                      fontWeight: FontWeight.bold
-                  )),
-            ),
-          ),
-
-        ],
-      ),
-    )??false;
+        ) ??
+        false;
   }
-
 }
