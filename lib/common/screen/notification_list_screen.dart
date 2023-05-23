@@ -18,30 +18,31 @@ class NotificationListScreen extends StatefulWidget {
 }
 
 class _NotificationListScreenState extends State<NotificationListScreen> {
-  NotificationListController getXController = Get.put(NotificationListController());
+  NotificationListController getXController =
+      Get.put(NotificationListController());
   CustomProgressDialog progressDialog = CustomProgressDialog();
-  
+
   @override
   void initState() {
     // TODO: implement initState
     getXController.isBack.value = false;
-    Future.delayed(Duration(), () {
+    Future.delayed(const Duration(), () {
       getApiData();
     });
     super.initState();
   }
-  getApiData()async{
+
+  getApiData() async {
     progressDialog.showProgressDialog();
-   await getXController.getNotificationListResponse().then((value) => progressDialog.close());
+    await getXController
+        .getNotificationListResponse()
+        .then((value) => progressDialog.close());
   }
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
-      ),
-      child: Obx((){
+    return Obx(
+      () {
         return WillPopScope(
             onWillPop: onWillPop,
             child: Scaffold(
@@ -57,28 +58,30 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
                       image: backArrowWhiteIcon,
                       color: Colors.black,
                     )),
-                title: Text('Notifications'),
+                title: const Text('Notifications'),
                 actions: [
-
-                  getXController.notificationList.isNotEmpty?
-                  InkWell(
-                      onTap: () {
-                        getXController.deleteAllNotifications();
-                      },
-                      child: Icon(Icons.delete_outline_outlined)) : SizedBox(),
-                  SizedBox(
+                  getXController.notificationList.isNotEmpty
+                      ? InkWell(
+                          onTap: () {
+                            getXController.deleteAllNotifications();
+                          },
+                          child: const Icon(Icons.delete_outline_outlined))
+                      : const SizedBox(),
+                  const SizedBox(
                     width: 20,
                   ),
-                  getXController.notificationList.isNotEmpty && getXController.notificationList[0].isread == 0
+                  getXController.notificationList.isNotEmpty &&
+                          getXController.notificationList[0].isread == 0
                       ? InkWell(
-                      onTap: () {
-                        if (getXController.notificationList[0].isread != 1) {
-                          getXController.readNotificationResponse();
-                        }
-                      },
-                      child: Icon(Icons.mark_email_read_outlined))
-                      : SizedBox(),
-                  SizedBox(
+                          onTap: () {
+                            if (getXController.notificationList[0].isread !=
+                                1) {
+                              getXController.readNotificationResponse();
+                            }
+                          },
+                          child: const Icon(Icons.mark_email_read_outlined))
+                      : const SizedBox(),
+                  const SizedBox(
                     width: 20,
                   ),
                 ],
@@ -86,13 +89,15 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
               body: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
-                  children: [getXController.notificationList.isNotEmpty ? Expanded(child: showNotifications()) : Center(child: Text('No Data Found'))],
+                  children: [
+                    getXController.notificationList.isNotEmpty
+                        ? Expanded(child: showNotifications())
+                        : const Center(child: Text('No Data Found'))
+                  ],
                 ),
               ),
-            )
-        );
-      })
-
+            ));
+      },
     );
   }
 
@@ -104,41 +109,57 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
         itemCount: getXController.notificationList.length,
         itemBuilder: (context, index) {
           return InkWell(
-            onTap: (){
-              if(getXController.notificationList[index].usertype == "Provider"){
+            onTap: () {
+              if (getXController.notificationList[index].usertype ==
+                  "Provider") {
                 Get.to(() => const ProviderAppointmentsScreen());
               } else {
-                Get.to(() => BeneficiaryAppointmentsScreen(callFrom: "Dashboard"));
+                Get.to(
+                    () => BeneficiaryAppointmentsScreen(callFrom: "Dashboard"));
               }
             },
             child: Card(
               elevation: 0,
-              color: getXController.notificationList[index].isread == 1 ? Colors.white : MyColor.skyBlueLight,
+              color: getXController.notificationList[index].isread == 1
+                  ? Colors.white
+                  : MyColor.skyBlueLight,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      getData(getXController.notificationList[index].notificationtype),
-                      style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'poppins_medium'),
+                      getData(getXController
+                          .notificationList[index].notificationtype),
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontFamily: 'poppins_medium'),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
-                      getData(getXController.notificationList[index].notificationtext),
-                      style: TextStyle(color: Colors.black, fontSize: 12, fontFamily: 'poppins_regular'),
+                      getData(getXController
+                          .notificationList[index].notificationtext),
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontFamily: 'poppins_regular'),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          getUiDate(getData(getXController.notificationList[index].notificationdate)),
-                          style: TextStyle(color: Colors.redAccent, fontSize: 12, fontFamily: 'poppins_regular'),
+                          getUiDate(getData(getXController
+                              .notificationList[index].notificationdate)),
+                          style: const TextStyle(
+                              color: Colors.redAccent,
+                              fontSize: 12,
+                              fontFamily: 'poppins_regular'),
                         ),
                       ],
                     )
@@ -180,7 +201,8 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
       String month = validadeSplit[1];
       int year = int.parse(validadeSplit[0].toString());
 
-      String date = '$year/$month/$day'; //this format should be same as fromDateFormat
+      String date =
+          '$year/$month/$day'; //this format should be same as fromDateFormat
 
       DateTime appointmentDateTime = fromDateFormatter.parse(date);
       newDate = '${toDateFormatter.format(appointmentDateTime)} $time';
@@ -191,7 +213,7 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
   ///
   ///
   ///
-  Future<bool> onWillPop() async{
+  Future<bool> onWillPop() async {
     Get.back(result: getXController.isBack.value);
     return false;
   }

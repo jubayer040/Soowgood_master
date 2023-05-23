@@ -22,13 +22,14 @@ class BeneficiaryProfileScreen extends StatefulWidget {
   const BeneficiaryProfileScreen({Key? key}) : super(key: key);
 
   @override
-  _BeneficiaryProfileScreenState createState() => _BeneficiaryProfileScreenState();
+  _BeneficiaryProfileScreenState createState() =>
+      _BeneficiaryProfileScreenState();
 }
 
 class _BeneficiaryProfileScreenState extends State<BeneficiaryProfileScreen> {
-  BeneficiaryProfileController getXController = Get.put(BeneficiaryProfileController());
+  BeneficiaryProfileController getXController =
+      Get.put(BeneficiaryProfileController());
   late Size size;
-
 
   @override
   void initState() {
@@ -40,16 +41,13 @@ class _BeneficiaryProfileScreenState extends State<BeneficiaryProfileScreen> {
 
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
 
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
-      ),
-      child: Obx(() {
+    return Obx(
+      () {
         return Scaffold(
           appBar: AppBar(
             elevation: 1.0,
@@ -63,7 +61,7 @@ class _BeneficiaryProfileScreenState extends State<BeneficiaryProfileScreen> {
             //   )
             // ],
           ),
-          body: Container(
+          body: SizedBox(
             width: size.width,
             height: size.height,
             child: Column(
@@ -74,7 +72,7 @@ class _BeneficiaryProfileScreenState extends State<BeneficiaryProfileScreen> {
             ),
           ),
         );
-      }),
+      },
     );
   }
 
@@ -88,29 +86,32 @@ class _BeneficiaryProfileScreenState extends State<BeneficiaryProfileScreen> {
           padding: const EdgeInsets.only(
             top: 10.0,
           ),
-          child: Container(
+          child: SizedBox(
             height: 120,
             width: 120,
             child: Stack(
               children: [
                 ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(100)),
-                  child: !getXController.isLoad.value && getXController.profileImageUrl.value == ''
+                  child: !getXController.isLoad.value &&
+                          getXController.profileImageUrl.value == ''
                       ? Image(
                           image: noProfileImage,
                           width: 110.0,
                           height: 110.0,
                           fit: BoxFit.fill,
                         )
-                      : getXController.isLoad.value && getXController.compressedImage.value == ''
-                          ? Center(
+                      : getXController.isLoad.value &&
+                              getXController.compressedImage.value == ''
+                          ? const Center(
                               child: CircularProgressIndicator(
                                 color: MyColor.themeTealBlue,
                               ),
                             )
                           : getXController.compressedImage.value != ''
                               ? Image(
-                                  image: FileImage(File(getXController.imageFile!.path)),
+                                  image: FileImage(
+                                      File(getXController.imageFile!.path)),
                                   width: 110.0,
                                   height: 110.0,
                                   fit: BoxFit.fill,
@@ -120,7 +121,9 @@ class _BeneficiaryProfileScreenState extends State<BeneficiaryProfileScreen> {
                                   width: 110.0,
                                   height: 110.0,
                                   fit: BoxFit.fill,
-                                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                  errorBuilder: (BuildContext context,
+                                      Object exception,
+                                      StackTrace? stackTrace) {
                                     return Image(
                                       image: noProfileImage,
                                       width: 110,
@@ -149,7 +152,7 @@ class _BeneficiaryProfileScreenState extends State<BeneficiaryProfileScreen> {
         Text(
           getXController.userName.value,
           textAlign: TextAlign.center,
-          style: new TextStyle(
+          style: const TextStyle(
             fontFamily: 'poppins_bold',
             fontSize: 17.0,
             color: MyColor.tealBlueDark,
@@ -184,7 +187,8 @@ class _BeneficiaryProfileScreenState extends State<BeneficiaryProfileScreen> {
         builder: (BuildContext bc) {
           return Container(
             height: MediaQuery.of(context).size.height * 0.3,
-            padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -204,7 +208,11 @@ class _BeneficiaryProfileScreenState extends State<BeneficiaryProfileScreen> {
                       SizedBox(
                         width: 15.0,
                       ),
-                      Text('Gallery', style: TextStyle(fontSize: 16.0, color: MyColor.themeTealBlue, fontFamily: 'poppins_semibold')),
+                      Text('Gallery',
+                          style: TextStyle(
+                              fontSize: 16.0,
+                              color: MyColor.themeTealBlue,
+                              fontFamily: 'poppins_semibold')),
                       SizedBox(
                         width: 10.0,
                       ),
@@ -227,7 +235,11 @@ class _BeneficiaryProfileScreenState extends State<BeneficiaryProfileScreen> {
                       SizedBox(
                         width: 15.0,
                       ),
-                      Text('Camera', style: TextStyle(fontSize: 16.0, color: MyColor.themeTealBlue, fontFamily: 'poppins_semibold')),
+                      Text('Camera',
+                          style: TextStyle(
+                              fontSize: 16.0,
+                              color: MyColor.themeTealBlue,
+                              fontFamily: 'poppins_semibold')),
                       SizedBox(
                         width: 10.0,
                       ),
@@ -249,7 +261,11 @@ class _BeneficiaryProfileScreenState extends State<BeneficiaryProfileScreen> {
                       SizedBox(
                         width: 15.0,
                       ),
-                      Text('Cancel', style: TextStyle(fontSize: 16.0, color: MyColor.themeTealBlue, fontFamily: 'poppins_semibold')),
+                      Text('Cancel',
+                          style: TextStyle(
+                              fontSize: 16.0,
+                              color: MyColor.themeTealBlue,
+                              fontFamily: 'poppins_semibold')),
                       SizedBox(
                         width: 10.0,
                       ),
@@ -272,8 +288,9 @@ class _BeneficiaryProfileScreenState extends State<BeneficiaryProfileScreen> {
         /// GALLERY IMAGE PICKER
         getXController.isLoad.value = false;
         getXController.compressedImage.value = '';
-        getXController.imageFile = (await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 90))!;
-       
+        getXController.imageFile = (await ImagePicker()
+            .pickImage(source: ImageSource.gallery, imageQuality: 90))!;
+
         CroppedFile? croppedFile = await ImageCropper().cropImage(
           sourcePath: getXController.imageFile!.path,
           aspectRatioPresets: [
@@ -303,7 +320,8 @@ class _BeneficiaryProfileScreenState extends State<BeneficiaryProfileScreen> {
         break;
 
       case "camera": // CAMERA CAPTURE CODE
-        getXController.imageFile = (await ImagePicker().pickImage(source: ImageSource.camera, imageQuality: 90))!;
+        getXController.imageFile = (await ImagePicker()
+            .pickImage(source: ImageSource.camera, imageQuality: 90))!;
         getXController.isLoad.value = true;
         CroppedFile? croppedFile = await ImageCropper().cropImage(
           sourcePath: getXController.imageFile!.path,
@@ -450,13 +468,17 @@ class _BeneficiaryProfileScreenState extends State<BeneficiaryProfileScreen> {
         children: [
           const Text(
             'Profile Settings',
-            style: TextStyle(color: MyColor.tealBlueDark, fontSize: 14.0, fontFamily: 'Poppins_semibold'),
+            style: TextStyle(
+                color: MyColor.tealBlueDark,
+                fontSize: 14.0,
+                fontFamily: 'Poppins_semibold'),
           ),
           Row(
             children: [
               InkWell(
                 onTap: () async {
-                  var result = await Get.to(() => const BeneficiaryProfileSettingScreen());
+                  var result = await Get.to(
+                      () => const BeneficiaryProfileSettingScreen());
                   if (result) {
                     Future.delayed(const Duration(), () {
                       getXController.getProfileResponse();
@@ -464,14 +486,18 @@ class _BeneficiaryProfileScreenState extends State<BeneficiaryProfileScreen> {
                   }
                 },
                 child: Container(
-                  padding: const EdgeInsets.only(left: 7, right: 7, top: 2, bottom: 2),
+                  padding: const EdgeInsets.only(
+                      left: 7, right: 7, top: 2, bottom: 2),
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(6)),
                     color: MyColor.lightPink,
                   ),
                   child: const Text(
                     'Update info',
-                    style: TextStyle(color: Colors.redAccent, fontSize: 14.0, fontFamily: 'poppins_medium'),
+                    style: TextStyle(
+                        color: Colors.redAccent,
+                        fontSize: 14.0,
+                        fontFamily: 'poppins_medium'),
                   ),
                 ),
               ),
@@ -497,7 +523,10 @@ class _BeneficiaryProfileScreenState extends State<BeneficiaryProfileScreen> {
         children: [
           Text(
             text,
-            style: const TextStyle(color: MyColor.tealBlueDark, fontSize: 14.0, fontFamily: 'Poppins_semibold'),
+            style: const TextStyle(
+                color: MyColor.tealBlueDark,
+                fontSize: 14.0,
+                fontFamily: 'Poppins_semibold'),
           ),
           InkWell(
               onTap: () async {
@@ -506,31 +535,51 @@ class _BeneficiaryProfileScreenState extends State<BeneficiaryProfileScreen> {
                 } else if (text == 'Notifications') {
                   Get.to(() => const NotificationListScreen());
                 } else if (text == 'Rate The App') {
-                  launchUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.app.soowgood"),mode: LaunchMode.externalNonBrowserApplication);
-                }  else if (text == 'Privacy Policy & Terms') {
-                  var data = await rootBundle.loadString("assets/images/soowgood.html");
+                  launchUrl(
+                      Uri.parse(
+                          "https://play.google.com/store/apps/details?id=com.app.soowgood"),
+                      mode: LaunchMode.externalNonBrowserApplication);
+                } else if (text == 'Privacy Policy & Terms') {
+                  var data = await rootBundle
+                      .loadString("assets/images/soowgood.html");
                   Get.to(() => PrivacyPolicy(data));
                   // launchUrl(Uri.parse(await rootBundle.loadString("assets/images/soowgood.html")));
                 } else if (text == 'Logout') {
                   await showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: Text('Logout', style: TextStyle(fontFamily: "poppins_regular", fontWeight: FontWeight.bold)),
-                      content: Text('Do you want to Logout?', style: TextStyle(fontFamily: "poppins_regular", fontSize: 14, fontWeight: FontWeight.w600)),
+                      title: const Text('Logout',
+                          style: TextStyle(
+                              fontFamily: "poppins_regular",
+                              fontWeight: FontWeight.bold)),
+                      content: const Text('Do you want to Logout?',
+                          style: TextStyle(
+                              fontFamily: "poppins_regular",
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600)),
                       actions: [
                         ElevatedButton(
                           onPressed: () => Navigator.of(context).pop(false),
-                          child: Text('No', style: TextStyle(color: Colors.white, fontFamily: "poppins_regular", fontWeight: FontWeight.bold)),
+                          child: const Text('No',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: "poppins_regular",
+                                  fontWeight: FontWeight.bold)),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 4.0),
                           child: ElevatedButton(
                             onPressed: () async {
-                              SharedPreferences preferences = await SharedPreferences.getInstance();
+                              SharedPreferences preferences =
+                                  await SharedPreferences.getInstance();
                               await preferences.clear();
                               Get.offAll(const LoginScreen());
                             },
-                            child: Text('Yes', style: TextStyle(color: Colors.white, fontFamily: "poppins_regular", fontWeight: FontWeight.bold)),
+                            child: const Text('Yes',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: "poppins_regular",
+                                    fontWeight: FontWeight.bold)),
                           ),
                         ),
                       ],
@@ -540,12 +589,23 @@ class _BeneficiaryProfileScreenState extends State<BeneficiaryProfileScreen> {
                   await showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: Text('Delete Account', style: TextStyle(fontFamily: "poppins_regular", fontWeight: FontWeight.bold)),
-                      content: Text('Do you want to delete your account?', style: TextStyle(fontFamily: "poppins_regular", fontSize: 12, fontWeight: FontWeight.w600)),
+                      title: const Text('Delete Account',
+                          style: TextStyle(
+                              fontFamily: "poppins_regular",
+                              fontWeight: FontWeight.bold)),
+                      content: const Text('Do you want to delete your account?',
+                          style: TextStyle(
+                              fontFamily: "poppins_regular",
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600)),
                       actions: [
                         ElevatedButton(
                           onPressed: () => Navigator.of(context).pop(false),
-                          child: Text('No', style: TextStyle(color: Colors.white, fontFamily: "poppins_regular", fontWeight: FontWeight.bold)),
+                          child: const Text('No',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: "poppins_regular",
+                                  fontWeight: FontWeight.bold)),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 4.0),
@@ -553,7 +613,11 @@ class _BeneficiaryProfileScreenState extends State<BeneficiaryProfileScreen> {
                             onPressed: () async {
                               getXController.deleteAccountResponse();
                             },
-                            child: Text('Yes', style: TextStyle(color: Colors.white, fontFamily: "poppins_regular", fontWeight: FontWeight.bold)),
+                            child: const Text('Yes',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: "poppins_regular",
+                                    fontWeight: FontWeight.bold)),
                           ),
                         ),
                       ],

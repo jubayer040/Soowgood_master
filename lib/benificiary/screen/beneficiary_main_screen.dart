@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:soowgood/benificiary/model/other/beneficiary_address_model.dart';
 import 'package:soowgood/benificiary/screen/beneficiary_appointments_screen.dart';
@@ -51,159 +50,81 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: MyColor.themeTealBlue,
-      ),
-      child: WillPopScope(
-        onWillPop: showExitPopup,
-        child: Scaffold(
-          body: pages.isNotEmpty
-              ? PageStorage(bucket: bucket, child: currentPage)
-              : const SizedBox(),
-          bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            items: [
-              BottomNavigationBarItem(
-                  icon: Image(
-                    image: homeIcon,
-                    color: currentPageNumber == 0
-                        ? MyColor.themeTealBlue
-                        : MyColor.hintColor,
-                    width: 40.0,
-                    height: 40.0,
-                  ),
-                  // icon: Icon(Icons.home, color: currentPageNumber == 0 ?  MyColor.themeTealBlue : MyColor.inactiveOtp),
-                  label: ""),
-              BottomNavigationBarItem(
-                  icon: Image(
-                    image: dashboardIcon,
-                    color: currentPageNumber == 1
-                        ? MyColor.themeTealBlue
-                        : MyColor.hintColor,
-                    width: 40.0,
-                    height: 40.0,
-                  ),
-                  label: ""),
-              BottomNavigationBarItem(
-                  icon: Image(
-                    image: appointmentBarIcon,
-                    color: currentPageNumber == 2
-                        ? MyColor.themeTealBlue
-                        : MyColor.hintColor,
-                    width: 40.0,
-                    height: 40.0,
-                  ),
-                  // icon: Icon(Icons.pa, color: currentPageNumber == 2 ? MyColor.themeTealBlue : MyColor.inactiveOtp),
-                  label: ""),
-              BottomNavigationBarItem(
-                  icon: Image(
-                    image: doctorIcon,
-                    color: currentPageNumber == 3
-                        ? MyColor.themeTealBlue
-                        : MyColor.hintColor,
-                    width: 40.0,
-                    height: 40.0,
-                  ),
-                  // icon: Icon(Icons.favorite, color: currentPageNumber == 3 ? MyColor.themeTealBlue : MyColor.inactiveOtp),
-                  label: ""),
-              BottomNavigationBarItem(
-                  icon: Image(
-                    image: profileIcon,
-                    color: currentPageNumber == 4
-                        ? MyColor.themeTealBlue
-                        : MyColor.hintColor,
-                    width: 40.0,
-                    height: 40.0,
-                  ),
-                  // icon: Icon(Icons.favorite, color: currentPageNumber == 3 ? MyColor.themeTealBlue : MyColor.inactiveOtp),
-                  label: ""),
-            ],
-            onTap: (int index) {
-              setState(() {
-                currentPage = pages[index];
-                currentPageNumber = index;
-              });
-              /*if(index == 0){
+    return WillPopScope(
+      onWillPop: showExitPopup,
+      child: Scaffold(
+        body: pages.isNotEmpty
+            ? PageStorage(bucket: bucket, child: currentPage)
+            : const SizedBox(),
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          items: [
+            BottomNavigationBarItem(
+                icon: Image(
+                  image: homeIcon,
+                  color: currentPageNumber == 0
+                      ? MyColor.themeTealBlue
+                      : MyColor.hintColor,
+                  width: 40.0,
+                  height: 40.0,
+                ),
+                // icon: Icon(Icons.home, color: currentPageNumber == 0 ?  MyColor.themeTealBlue : MyColor.inactiveOtp),
+                label: ""),
+            BottomNavigationBarItem(
+                icon: Image(
+                  image: dashboardIcon,
+                  color: currentPageNumber == 1
+                      ? MyColor.themeTealBlue
+                      : MyColor.hintColor,
+                  width: 40.0,
+                  height: 40.0,
+                ),
+                label: ""),
+            BottomNavigationBarItem(
+                icon: Image(
+                  image: appointmentBarIcon,
+                  color: currentPageNumber == 2
+                      ? MyColor.themeTealBlue
+                      : MyColor.hintColor,
+                  width: 40.0,
+                  height: 40.0,
+                ),
+                // icon: Icon(Icons.pa, color: currentPageNumber == 2 ? MyColor.themeTealBlue : MyColor.inactiveOtp),
+                label: ""),
+            BottomNavigationBarItem(
+                icon: Image(
+                  image: doctorIcon,
+                  color: currentPageNumber == 3
+                      ? MyColor.themeTealBlue
+                      : MyColor.hintColor,
+                  width: 40.0,
+                  height: 40.0,
+                ),
+                // icon: Icon(Icons.favorite, color: currentPageNumber == 3 ? MyColor.themeTealBlue : MyColor.inactiveOtp),
+                label: ""),
+            BottomNavigationBarItem(
+                icon: Image(
+                  image: profileIcon,
+                  color: currentPageNumber == 4
+                      ? MyColor.themeTealBlue
+                      : MyColor.hintColor,
+                  width: 40.0,
+                  height: 40.0,
+                ),
+                // icon: Icon(Icons.favorite, color: currentPageNumber == 3 ? MyColor.themeTealBlue : MyColor.inactiveOtp),
+                label: ""),
+          ],
+          onTap: (int index) {
+            setState(() {
+              currentPage = pages[index];
+              currentPageNumber = index;
+            });
+            /*if(index == 0){
                 Future.delayed(Duration.zero, () async {
                   _getXController.hitCurrentOrderApi();
                 });
               }*/
-            },
-          ),
-        ),
-      ),
-    );
-  }
-
-  ///*
-  ///
-  ///
-  getHeader() {
-    return SizedBox(
-      height: 300,
-      child: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(image: patientBgImg, fit: BoxFit.cover)),
-          ),
-          Container(
-            color: MyColor.teal,
-          )
-        ],
-      ),
-    );
-  }
-
-  ///*
-  ///
-  ///
-  Widget notificationCountWidget() {
-    return InkWell(
-      onTap: () async {
-        /* var nav = await Get.to(() => NotificationListScreen(userType: 'Customer',));
-        if(nav == null){
-          _getXController.hitNotificationCountApi();
-        }*/
-      },
-      child: SizedBox(
-        width: 50,
-        child: Stack(
-          children: [
-            const Positioned(
-              top: 0,
-              bottom: 0,
-              left: 5,
-              child: Icon(
-                Icons.notifications_none_rounded,
-                color: Colors.white,
-              ),
-            ),
-
-            // _getXController.notificationCount != 0?
-            Positioned(
-              top: 10,
-              right: 15,
-              child: Container(
-                height: 18,
-                width: 18,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: MyColor.skyBlueLight,
-                  borderRadius: BorderRadius.circular(9.0),
-                ),
-                child: const Text(
-                  '0',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: 'poppins_medium',
-                      fontSize: 10),
-                ),
-              ),
-            )
-            // SizedBox()
-          ],
+          },
         ),
       ),
     );
@@ -223,20 +144,11 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
         log('Location_Permission : LocationPermission.denied');
         showLocationPermssionDialog("denied");
         pages.clear();
-        currentPage = BeneficiaryHomeScreen(
-          addressModel: addressModel,
-        );
-        pages.add(BeneficiaryHomeScreen(
-          addressModel: addressModel,
-        ));
+        currentPage = BeneficiaryHomeScreen(addressModel: addressModel);
+        pages.add(BeneficiaryHomeScreen(addressModel: addressModel));
         pages.add(const BeneficiaryDashboardScreen());
-        pages.add(BeneficiaryAppointmentsScreen(
-          callFrom: 'Main',
-        ));
-        pages.add(BeneficiaryDoctorsScreen(
-          searchText: '',
-          fromHome: 'false',
-        ));
+        pages.add(BeneficiaryAppointmentsScreen(callFrom: 'Main'));
+        pages.add(BeneficiaryDoctorsScreen(searchText: '', fromHome: 'false'));
         pages.add(const BeneficiaryProfileScreen());
         setState(() {});
       } else if (permission == geo.LocationPermission.deniedForever) {
@@ -244,20 +156,11 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
         showLocationPermssionDialog(
             "deniedForever"); //if permission deniedForever by user then show dialog , why permission is required
         pages.clear();
-        currentPage = BeneficiaryHomeScreen(
-          addressModel: addressModel,
-        );
-        pages.add(BeneficiaryHomeScreen(
-          addressModel: addressModel,
-        ));
+        currentPage = BeneficiaryHomeScreen(addressModel: addressModel);
+        pages.add(BeneficiaryHomeScreen(addressModel: addressModel));
         pages.add(const BeneficiaryDashboardScreen());
-        pages.add(BeneficiaryAppointmentsScreen(
-          callFrom: 'Main',
-        ));
-        pages.add(BeneficiaryDoctorsScreen(
-          searchText: '',
-          fromHome: 'false',
-        ));
+        pages.add(BeneficiaryAppointmentsScreen(callFrom: 'Main'));
+        pages.add(BeneficiaryDoctorsScreen(searchText: '', fromHome: 'false'));
         pages.add(const BeneficiaryProfileScreen());
         setState(() {});
       } else if (permission == geo.LocationPermission.always ||
@@ -265,20 +168,11 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
         log('Location_Permission : $permission');
         checkLocationService(); //if location is allow then check further permission i.e location service permission
         pages.clear();
-        currentPage = BeneficiaryHomeScreen(
-          addressModel: addressModel,
-        );
-        pages.add(BeneficiaryHomeScreen(
-          addressModel: addressModel,
-        ));
+        currentPage = BeneficiaryHomeScreen(addressModel: addressModel);
+        pages.add(BeneficiaryHomeScreen(addressModel: addressModel));
         pages.add(const BeneficiaryDashboardScreen());
-        pages.add(BeneficiaryAppointmentsScreen(
-          callFrom: 'Main',
-        ));
-        pages.add(BeneficiaryDoctorsScreen(
-          searchText: '',
-          fromHome: 'false',
-        ));
+        pages.add(BeneficiaryAppointmentsScreen(callFrom: 'Main'));
+        pages.add(BeneficiaryDoctorsScreen(searchText: '', fromHome: 'false'));
         pages.add(const BeneficiaryProfileScreen());
         setState(() {});
       }
@@ -292,13 +186,8 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
         addressModel: addressModel,
       ));
       pages.add(const BeneficiaryDashboardScreen());
-      pages.add(BeneficiaryAppointmentsScreen(
-        callFrom: 'Main',
-      ));
-      pages.add(BeneficiaryDoctorsScreen(
-        searchText: '',
-        fromHome: 'false',
-      ));
+      pages.add(BeneficiaryAppointmentsScreen(callFrom: 'Main'));
+      pages.add(BeneficiaryDoctorsScreen(searchText: '', fromHome: 'false'));
       pages.add(const BeneficiaryProfileScreen());
       setState(() {});
     }
@@ -398,61 +287,59 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
         '$host?key=${MyString.googleApiKey}&language=en&latlng=${addressModel.latitude},${addressModel.longitude}';
     log("URL ADDR$url");
 
-    if (addressModel.longitude != null) {
-      var response = await http.get(Uri.parse(url));
-      if (response.statusCode == 200) {
-        print(response.body);
-        Map data = jsonDecode(response.body);
-        String formattedAddress = data["results"][0]["formatted_address"];
+    var response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      print(response.body);
+      Map data = jsonDecode(response.body);
+      String formattedAddress = data["results"][0]["formatted_address"];
 
-        List<dynamic> addressComponents =
-            data['results'][0]['address_components'];
+      List<dynamic> addressComponents =
+          data['results'][0]['address_components'];
 
-        List<dynamic> countries = addressComponents
-            .where((entry) => entry['types'].contains('country'))
-            .toList()
-            .map((entry) => entry['long_name'])
-            .toList();
-        List<dynamic> localities = addressComponents
-            .where((entry) => entry['types'].contains('locality'))
-            .toList()
-            .map((entry) => entry['long_name'])
-            .toList();
-        List<dynamic> postalCode = addressComponents
-            .where((entry) => entry['types'].contains('postal_code'))
-            .toList()
-            .map((entry) => entry['long_name'])
-            .toList();
+      List<dynamic> countries = addressComponents
+          .where((entry) => entry['types'].contains('country'))
+          .toList()
+          .map((entry) => entry['long_name'])
+          .toList();
+      List<dynamic> localities = addressComponents
+          .where((entry) => entry['types'].contains('locality'))
+          .toList()
+          .map((entry) => entry['long_name'])
+          .toList();
+      List<dynamic> postalCode = addressComponents
+          .where((entry) => entry['types'].contains('postal_code'))
+          .toList()
+          .map((entry) => entry['long_name'])
+          .toList();
 
-        addressModel.address = formattedAddress;
-        addressModel.countryName = countries[0];
-        addressModel.city = localities[0];
-        addressModel.zipCode = postalCode[0];
+      addressModel.address = formattedAddress;
+      addressModel.countryName = countries[0];
+      addressModel.city = localities[0];
+      addressModel.zipCode = postalCode[0];
 
-        log("Main Address : ${addressModel.address}");
-        log("Main Country : ${addressModel.countryName}");
-        log("Main City : ${addressModel.city}");
-        log("Main ZipCode : ${addressModel.zipCode}");
+      log("Main Address : ${addressModel.address}");
+      log("Main Country : ${addressModel.countryName}");
+      log("Main City : ${addressModel.city}");
+      log("Main ZipCode : ${addressModel.zipCode}");
 
-        // progressDialog.close();
-        pages.clear();
-        currentPage = BeneficiaryHomeScreen(
-          addressModel: addressModel,
-        );
-        pages.add(BeneficiaryHomeScreen(
-          addressModel: addressModel,
-        ));
-        pages.add(const BeneficiaryDashboardScreen());
-        pages.add(BeneficiaryAppointmentsScreen(
-          callFrom: 'Main',
-        ));
-        pages.add(BeneficiaryDoctorsScreen(
-          searchText: '',
-          fromHome: 'false',
-        ));
-        pages.add(const BeneficiaryProfileScreen());
-        setState(() {});
-      }
+      // progressDialog.close();
+      pages.clear();
+      currentPage = BeneficiaryHomeScreen(
+        addressModel: addressModel,
+      );
+      pages.add(BeneficiaryHomeScreen(
+        addressModel: addressModel,
+      ));
+      pages.add(const BeneficiaryDashboardScreen());
+      pages.add(BeneficiaryAppointmentsScreen(
+        callFrom: 'Main',
+      ));
+      pages.add(BeneficiaryDoctorsScreen(
+        searchText: '',
+        fromHome: 'false',
+      ));
+      pages.add(const BeneficiaryProfileScreen());
+      setState(() {});
     }
   }
 

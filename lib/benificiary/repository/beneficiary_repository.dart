@@ -67,526 +67,491 @@ import 'package:soowgood/provider/model/response/provider_profile_response.dart'
 import 'package:soowgood/provider/model/response/provider_profile_score_response.dart';
 import 'package:soowgood/provider/model/response/provider_schedule_type_response.dart';
 
-class BeneficiaryRepository{
-
-  ApiClient apiClient = ApiClient() ;
+class BeneficiaryRepository {
+  ApiClient apiClient = ApiClient();
 
   ///*
   ///
   ///
-  Future<List<BeneficiaryProvidersResponse>?> hitProvidersApi(BeneficiaryProvidersRequest requestModel) async{
+  Future<List<BeneficiaryProvidersResponse>?> hitProvidersApi(
+      BeneficiaryProvidersRequest requestModel) async {
     List<BeneficiaryProvidersResponse>? responseModel;
 
     final results = await apiClient.requestBeneficiaryProvidersList(
         url: ApiConstant.beneficiaryProvidersApi,
         parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       responseModel = results;
     }
     return responseModel;
-
   }
-
 
   ///*
   ///
   ///
-  Future<List<BeneficiarySpecializationResponse>?> hitSpecializationApi() async{
+  Future<List<BeneficiarySpecializationResponse>?>
+      hitSpecializationApi() async {
     List<BeneficiarySpecializationResponse>? responseModel;
 
     final results = await apiClient.requestBeneficiarySpecializationList(
-        url: ApiConstant.beneficiarySpecializationApi,);
+      url: ApiConstant.beneficiarySpecializationApi,
+    );
 
-    if(results != null){
+    if (results != null) {
       responseModel = results;
     }
     return responseModel;
-
   }
-
 
   ///*
   ///
   ///
-  Future<List<BeneficiarySearchProvidersResponse>?> hitSearchProvidersApi(BeneficiarySearchProvidersRequest requestModel) async{
+  Future<List<BeneficiarySearchProvidersResponse>?> hitSearchProvidersApi(
+    BeneficiarySearchProvidersRequest requestModel,
+  ) async {
     List<BeneficiarySearchProvidersResponse>? responseModel;
 
     final results = await apiClient.requestSearchProvidersList(
-      url: ApiConstant.searchProvidersApi,
-      parameters: json.encode(requestModel));
+        url: ApiConstant.searchProvidersApi,
+        parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       responseModel = results;
     }
     return responseModel;
-
   }
 
   ///*
   ///
   ///
-  Future<List<String>?> hitSpecializationTypeListApi(DropdownListRequest requestModel) async{
+  Future<List<String>?> hitSpecializationTypeListApi(
+      DropdownListRequest requestModel) async {
     List<String>? responseModel;
 
     final results = await apiClient.requestStringList(
         url: ApiConstant.specializationTypeListApi,
         parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       responseModel = results;
     }
     return responseModel;
-
   }
-
 
   ///*
   ///
   ///
-  Future<List<ProviderConsultancyTypeResponse>?> hitAppointmentTypeApi(ProviderConsultancyTypeRequest requestModel) async{
+  Future<List<ProviderConsultancyTypeResponse>?> hitAppointmentTypeApi(
+      ProviderConsultancyTypeRequest requestModel) async {
     List<ProviderConsultancyTypeResponse>? responseModel;
 
     final results = await apiClient.requestConsultancyTypeList(
         url: ApiConstant.getConsultancyTypeApi,
         parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       responseModel = results;
     }
     return responseModel;
-
   }
 
   ///*
   ///
   ///
-  Future<ScheduleForBookingResponse?> hitScheduleForBookingApi(ScheduleForBookingRequest requestModel) async{
-    ScheduleForBookingResponse? responseModel ;
+  Future<ScheduleForBookingResponse?> hitScheduleForBookingApi(
+      ScheduleForBookingRequest requestModel) async {
+    ScheduleForBookingResponse? responseModel;
 
     final results = await apiClient.requestPost(
         url: ApiConstant.scheduleForBookingApi,
         parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       responseModel = ScheduleForBookingResponse.fromJson(results);
     }
     return responseModel;
-
   }
-
 
   ///*
   ///
   ///
-  Future<List<BeneficiaryAddEditBookingResponse>?> hitAddEditBookingApi(BeneficiaryAddEditBookingRequest requestModel) async{
+  Future<List<BeneficiaryAddEditBookingResponse>?> hitAddEditBookingApi(
+      BeneficiaryAddEditBookingRequest requestModel) async {
     List<BeneficiaryAddEditBookingResponse>? responseModel;
 
     final results = await apiClient.requestAddEditBooking(
         url: ApiConstant.addEditBookingApi,
         parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       responseModel = results;
     }
     return responseModel;
-
   }
-
 
   ///*
   ///
   ///
-  Future<bool> hitUploadPrescriptionApi(AddEditBookingDocRequest requestModel) async{
+  Future<bool> hitUploadPrescriptionApi(
+      AddEditBookingDocRequest requestModel) async {
     bool isDocumentUpload = false;
     final results = await apiClient.requestUploadPrescriptionFormData(
-        url: ApiConstant.addEditBookingDocApi,
-        requestModel: requestModel);
+        url: ApiConstant.addEditBookingDocApi, requestModel: requestModel);
 
-    if(results != null){
-      log('UploadPrescription_Response : ${results.toString()}');
-      isDocumentUpload = true;
-    }
+    log('UploadPrescription_Response : ${results.toString()}');
+    isDocumentUpload = true;
     return isDocumentUpload;
   }
 
-
   ///*
   ///
   ///
-  Future<List<UpdatePatientDataResponse>?> hitUpdatePatientDataApi(UpdatePatientDataRequest requestModel) async{
+  Future<List<UpdatePatientDataResponse>?> hitUpdatePatientDataApi(
+      UpdatePatientDataRequest requestModel) async {
     List<UpdatePatientDataResponse>? responseModel;
 
     final results = await apiClient.requestUpdatePatientData(
         url: ApiConstant.updatePatientDataApi,
         parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       responseModel = results;
     }
     return responseModel;
-
   }
-
 
   ///*
   ///
   ///
-  Future<List<BookingSummaryResponse>?> hitGetBookingSummaryApi(BookingSummaryRequest requestModel) async{
+  Future<List<BookingSummaryResponse>?> hitGetBookingSummaryApi(
+      BookingSummaryRequest requestModel) async {
     List<BookingSummaryResponse>? responseModel;
 
     final results = await apiClient.requestBookingSummaryApi(
         url: ApiConstant.getBookingSummaryApi,
         parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       responseModel = results;
     }
     return responseModel;
-
   }
-
 
   ///*
   ///
   ///
-  Future<PaymentProcessResponse?> hitPaymentProcessApi(PaymentProcessRequest requestModel) async{
-    PaymentProcessResponse? responseModel ;
+  Future<PaymentProcessResponse?> hitPaymentProcessApi(
+      PaymentProcessRequest requestModel) async {
+    PaymentProcessResponse? responseModel;
 
     final results = await apiClient.requestPost(
         url: ApiConstant.getPaymentProcessApi,
         parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       responseModel = PaymentProcessResponse.fromJson(results);
     }
     return responseModel;
-
   }
-
 
   ///*
   ///
   ///
-  Future<int?> hitDoctorCountApi(DoctorsCountRequest requestModel) async{
-
+  Future<int?> hitDoctorCountApi(DoctorsCountRequest requestModel) async {
     int? data;
 
     final results = await apiClient.requestIntData(
         url: ApiConstant.getDoctorCountApi,
         parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       data = results;
     }
     return data;
-
   }
-
 
   ///*
   ///
   ///
-  Future<int?> hitAppointmentCountApi(AppointmentCountRequest requestModel) async{
-    int? data ;
+  Future<int?> hitAppointmentCountApi(
+      AppointmentCountRequest requestModel) async {
+    int? data;
 
     final results = await apiClient.requestIntData(
         url: ApiConstant.getAppointmentCountApi,
         parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       data = results;
     }
     return data;
-
   }
-
 
   ///*
   ///
   ///
-  Future<List<AppointmentListResponse>?> hitAppointmentListApi(AppointmentListRequest requestModel) async{
+  Future<List<AppointmentListResponse>?> hitAppointmentListApi(
+      AppointmentListRequest requestModel) async {
     List<AppointmentListResponse>? responseModel;
 
     final results = await apiClient.requestAppointmentListApi(
         url: ApiConstant.getAppointmentListApi,
         parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       responseModel = results;
     }
     return responseModel;
-
   }
-
 
   ///*
   ///
   ///
-  Future<ProviderBasicInfoResponse?> hitUpdateBasicInfoApi(ProviderBasicInfoRequest requestModel) async{
-    ProviderBasicInfoResponse? responseModel ;
+  Future<ProviderBasicInfoResponse?> hitUpdateBasicInfoApi(
+      ProviderBasicInfoRequest requestModel) async {
+    ProviderBasicInfoResponse? responseModel;
 
     final results = await apiClient.requestPost(
         url: ApiConstant.updateUserProfileApi,
         parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       responseModel = ProviderBasicInfoResponse.fromJson(results);
     }
     return responseModel;
-
   }
-
 
   ///*
   ///
   /// profile details
-  Future<List<ProviderProfileResponse>?> hitProfileDataApi(ProviderProfileRequest requestModel) async{
+  Future<List<ProviderProfileResponse>?> hitProfileDataApi(
+      ProviderProfileRequest requestModel) async {
     List<ProviderProfileResponse>? responseModel;
 
     final results = await apiClient.requestProviderProfile(
-        url: ApiConstant.profileDataApi,
-        parameters: json.encode(requestModel));
+        url: ApiConstant.profileDataApi, parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       responseModel = results;
     }
     return responseModel;
-
   }
-
 
   ///*
   ///
   /// profile Score
-  Future<List<ProviderProfileScoreResponse>?> hitGetProfileScoreApi(ProviderProfileScoreRequest requestModel) async{
+  Future<List<ProviderProfileScoreResponse>?> hitGetProfileScoreApi(
+      ProviderProfileScoreRequest requestModel) async {
     List<ProviderProfileScoreResponse>? responseModel;
 
     final results = await apiClient.requestProviderProfileScore(
         url: ApiConstant.providerProfileScoreApi,
         parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       responseModel = results;
     }
     return responseModel;
-
   }
 
   ///*
   ///
   ///
-  Future<List<VerifyUserResponse>?> hitDeleteAccountApi(ProviderProfileRequest requestModel) async{
-    List<VerifyUserResponse>? responseModel ;
+  Future<List<VerifyUserResponse>?> hitDeleteAccountApi(
+      ProviderProfileRequest requestModel) async {
+    List<VerifyUserResponse>? responseModel;
 
     final results = await apiClient.requestDeleteAccount(
         url: ApiConstant.deleteAccountApi,
         parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       responseModel = results;
     }
     return responseModel;
-
   }
-
 
   ///*
   ///
   ///
-  Future<bool> hitUploadProfilePicApi(UploadProfilePicRequest requestModel) async{
+  Future<bool> hitUploadProfilePicApi(
+      UploadProfilePicRequest requestModel) async {
     // UploadProfilePicResponse? responseModel ;
     bool isUploadToServer = false;
     final results = await apiClient.requestUploadProfilePic(
-        url: ApiConstant.uploadProfilePicApi,
-        requestModel: requestModel);
+        url: ApiConstant.uploadProfilePicApi, requestModel: requestModel);
 
-    if(results != null){
-      /*await results.stream.bytesToString().then((value) {
-        responseModel = UploadProfilePicResponse.fromJson(json.decode(value));
-      });*/
-      isUploadToServer = true;
-    }
+    isUploadToServer = true;
     return isUploadToServer;
   }
-
 
   ///*
   ///
   ///
-  Future<RemoveBookingResponse?> hitRemoveBookingApi(RemoveBookingRequest requestModel) async{
-    RemoveBookingResponse? responseModel ;
+  Future<RemoveBookingResponse?> hitRemoveBookingApi(
+      RemoveBookingRequest requestModel) async {
+    RemoveBookingResponse? responseModel;
 
     final results = await apiClient.requestPostCreate(
         url: ApiConstant.getRemoveBookingApi,
         parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       responseModel = RemoveBookingResponse.fromJson(results);
     }
     return responseModel;
-
   }
-
 
   ///*
   ///
   ///
-  Future<List<CheckAppointmentCancelResponse>?> hitCheckAppointmentCancelApi(CheckAppointmentCancelRequest requestModel) async{
+  Future<List<CheckAppointmentCancelResponse>?> hitCheckAppointmentCancelApi(
+      CheckAppointmentCancelRequest requestModel) async {
     List<CheckAppointmentCancelResponse>? responseModel;
 
     final results = await apiClient.requestCheckAppointmentCancel(
         url: ApiConstant.checkAppointmentCancelApi,
         parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       responseModel = results;
     }
     return responseModel;
-
   }
-
 
   ///*
   ///
   ///
-  Future<List<BeneficiaryCancelAppointmentResponse>?> hitCancelAppointmentApi(BeneficiaryCancelAppointmentRequest requestModel) async{
+  Future<List<BeneficiaryCancelAppointmentResponse>?> hitCancelAppointmentApi(
+      BeneficiaryCancelAppointmentRequest requestModel) async {
     List<BeneficiaryCancelAppointmentResponse>? responseModel;
 
     final results = await apiClient.requestBeneficiaryAppointmentCancel(
         url: ApiConstant.beneficiaryCancelAppointmentApi,
         parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       responseModel = results;
     }
     return responseModel;
-
   }
-
 
   ///*
   ///
   /// profile details
-  Future<List<BeneficiaryPrescriptionListResponse>?> hitPrescriptionListApi(BeneficiaryPrescriptionListRequest requestModel) async{
+  Future<List<BeneficiaryPrescriptionListResponse>?> hitPrescriptionListApi(
+      BeneficiaryPrescriptionListRequest requestModel) async {
     List<BeneficiaryPrescriptionListResponse>? responseModel;
 
     final results = await apiClient.requestBeneficiaryPrescriptionList(
         url: ApiConstant.getPrescriptionListApi,
         parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       responseModel = results;
     }
     return responseModel;
-
   }
-
 
   ///*
   ///
   /// profile details
-  Future<List<BeneficiaryDrugListResponse>?> hitDrugListApi(BeneficiaryDrugListRequest requestModel) async{
+  Future<List<BeneficiaryDrugListResponse>?> hitDrugListApi(
+      BeneficiaryDrugListRequest requestModel) async {
     List<BeneficiaryDrugListResponse>? responseModel;
 
     final results = await apiClient.requestBeneficiaryDrugList(
         url: ApiConstant.beneficiaryGetDrugApi,
         parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       responseModel = results;
     }
     return responseModel;
-
   }
-
 
   ///*
   ///
   /// profile details
-  Future<List<BeneficiaryMedicalTestResponse>?> hitMedicalTestListApi(BeneficiaryMedicalTestRequest requestModel) async{
+  Future<List<BeneficiaryMedicalTestResponse>?> hitMedicalTestListApi(
+      BeneficiaryMedicalTestRequest requestModel) async {
     List<BeneficiaryMedicalTestResponse>? responseModel;
 
     final results = await apiClient.requestBeneficiaryMedicalList(
         url: ApiConstant.beneficiaryGetMedicalTestApi,
         parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       responseModel = results;
     }
     return responseModel;
-
   }
-
 
   ///*
   ///
   /// profile details
-  Future<List<BeneficiaryAdviceListResponse>?> hitAdviceListApi(BeneficiaryAdviceListRequest requestModel) async{
+  Future<List<BeneficiaryAdviceListResponse>?> hitAdviceListApi(
+      BeneficiaryAdviceListRequest requestModel) async {
     List<BeneficiaryAdviceListResponse>? responseModel;
 
     final results = await apiClient.requestBeneficiaryAdviceList(
         url: ApiConstant.beneficiaryGetAdviceApi,
         parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       responseModel = results;
     }
     return responseModel;
-
   }
-
 
   ///*
   ///
   ///
-  Future<List<BeneficiaryPrescriptionDataResponse>?> hitPrescriptionDataApi(BeneficiaryPrescriptionDataRequest requestModel) async{
+  Future<List<BeneficiaryPrescriptionDataResponse>?> hitPrescriptionDataApi(
+      BeneficiaryPrescriptionDataRequest requestModel) async {
     List<BeneficiaryPrescriptionDataResponse>? responseModel;
 
     final results = await apiClient.requestBeneficiaryPrescriptionData(
         url: ApiConstant.patientPrescriptionDataApi,
         parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       responseModel = results;
     }
     return responseModel;
-
   }
-
 
   ///*
   ///
   ///
-  Future<TwilioAccessTokenResponse?> hitTwilioAccessTokenApi() async{
-    TwilioAccessTokenResponse? responseModel ;
+  Future<TwilioAccessTokenResponse?> hitTwilioAccessTokenApi() async {
+    TwilioAccessTokenResponse? responseModel;
 
     final results = await apiClient.requestGet(
-      url: ApiConstant.twilioAccessToken,);
+      url: ApiConstant.twilioAccessToken,
+    );
 
-    if(results != null){
+    if (results != null) {
       responseModel = TwilioAccessTokenResponse.fromJson(results);
     }
     return responseModel;
-
   }
 
   ///*
   ///
   ///
-  Future<DummyPaymentResponse?> hitDummyPaymentApi(DummyPaymentRequest requestModel) async{
-    DummyPaymentResponse? responseModel ;
+  Future<DummyPaymentResponse?> hitDummyPaymentApi(
+      DummyPaymentRequest requestModel) async {
+    DummyPaymentResponse? responseModel;
 
     final results = await apiClient.requestPost(
         url: ApiConstant.dummyPaymentApi,
         parameters: json.encode(requestModel));
 
-    if(results != null){
+    if (results != null) {
       responseModel = DummyPaymentResponse.fromJson(results);
     }
     return responseModel;
-
   }
-
-
 }

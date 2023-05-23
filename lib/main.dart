@@ -1,19 +1,19 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:ui';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:soowgood/common/resources/my_colors.dart';
 import 'package:soowgood/common/resources/my_string.dart';
-import 'package:soowgood/common/screen/splash_scree.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:soowgood/common/screen/splash_scree.dart';
 import 'package:soowgood/common/service/push_notification_service.dart';
 import 'package:soowgood/firebase_options.dart';
-import 'common/screen/notification_list_screen.dart'; //
+//
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -25,6 +25,10 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarIconBrightness: Brightness.light, // navigation bar color
+    statusBarColor: Colors.black26, // status bar color
+  ));
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
   PushNotificationService().init();

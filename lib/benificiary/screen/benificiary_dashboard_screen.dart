@@ -17,28 +17,30 @@ class BeneficiaryDashboardScreen extends StatefulWidget {
   const BeneficiaryDashboardScreen({Key? key}) : super(key: key);
 
   @override
-  _BeneficiryDashboardScreenState createState() => _BeneficiryDashboardScreenState();
+  _BeneficiryDashboardScreenState createState() =>
+      _BeneficiryDashboardScreenState();
 }
 
-class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> {
-
-  BeneficiaryDashboardController getXController =  Get.put(BeneficiaryDashboardController());
+class _BeneficiryDashboardScreenState
+    extends State<BeneficiaryDashboardScreen> {
+  BeneficiaryDashboardController getXController =
+      Get.put(BeneficiaryDashboardController());
 
   @override
   void initState() {
     // TODO: implement initState
 
-    Future.delayed(const Duration(), (){
+    Future.delayed(const Duration(), () {
       getXController.getProfileResponse();
     });
 
-    Future.delayed(const Duration(), (){
+    Future.delayed(const Duration(), () {
       getXController.getDoctorCount();
     });
-    Future.delayed(const Duration(), (){
+    Future.delayed(const Duration(), () {
       getXController.getAppointmentCount();
     });
-    Future.delayed(const Duration(), (){
+    Future.delayed(const Duration(), () {
       getXController.getAppointmentListResponse();
     });
     super.initState();
@@ -46,22 +48,19 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-        value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-    ),
-    child: Obx((){
+    return Obx(() {
       return Scaffold(
         appBar: AppBar(
           shadowColor: Colors.transparent,
           backgroundColor: Colors.white,
           centerTitle: true,
-          title: const Text('Dashboard',
+          title: const Text(
+            'Dashboard',
             style: TextStyle(
                 color: MyColor.themeTealBlue,
                 fontSize: 17.0,
-                fontFamily: 'poppins_semibold'
-            ),),
+                fontFamily: 'poppins_semibold'),
+          ),
           actions: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -71,55 +70,54 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
             ),
           ],
         ),
-
-
         body: Padding(
           padding: const EdgeInsets.all(15),
           child: Column(
             children: [
               getWelcomeWidget(),
-
-              const SizedBox(height: 10,),
-
+              const SizedBox(
+                height: 10,
+              ),
               getCountWidget(),
-
               const SizedBox(height: 10),
-              Row(children: [
-                const Text('Recent Appointments',
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: MyColor.themeTealBlue,
-                        fontFamily: 'poppins_semibold'
-                    ))
-              ],),
+              Row(
+                children: const [
+                  Text('Recent Appointments',
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: MyColor.themeTealBlue,
+                          fontFamily: 'poppins_semibold'))
+                ],
+              ),
               const SizedBox(height: 10),
-              getXController.appointmentList.isNotEmpty?
-              getRecentAppointment():const Text('No Data Found',
-                style: TextStyle(
-                fontSize: 12,
-                color: Colors.black38,
-                fontFamily: 'poppins_semibold'
-              ),)
+              getXController.appointmentList.isNotEmpty
+                  ? getRecentAppointment()
+                  : const Text(
+                      'No Data Found',
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.black38,
+                          fontFamily: 'poppins_semibold'),
+                    )
             ],
           ),
         ),
       );
-    }));
+    });
   }
-
 
   ///*
   ///
   ///
   Widget notificationCountWidget() {
     return InkWell(
-      onTap: () async{
+      onTap: () async {
         /* var nav = await Get.to(() => NotificationListScreen(userType: 'Customer',));
         if(nav == null){
           _getXController.hitNotificationCountApi();
         }*/
       },
-      child: Container(
+      child: SizedBox(
         width: 50,
         child: Stack(
           children: [
@@ -159,9 +157,7 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
         ),
       ),
     );
-
   }
-
 
   ///*
   ///
@@ -172,49 +168,44 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
       width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: MyColor.lightGreenBlue
-      ),
+          color: MyColor.lightGreenBlue),
       child: Row(
         children: [
-
           Expanded(
             flex: 2,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children:  [
+              children: [
                 const Text(
                   'Welcome',
                   style: TextStyle(
                       color: MyColor.themeTealBlue,
                       fontSize: 16.0,
-                      fontFamily: 'poppins_semibold'
-                  ),
+                      fontFamily: 'poppins_semibold'),
                 ),
-
-                const SizedBox(height: 3,),
+                const SizedBox(
+                  height: 3,
+                ),
                 Text(
                   getXController.userName.value,
                   style: const TextStyle(
                       color: MyColor.themeTealBlue,
                       fontSize: 16.0,
-                      fontFamily: 'poppins_semibold'
-                  ),
+                      fontFamily: 'poppins_semibold'),
                 ),
-
-                const SizedBox(height: 3,),
+                const SizedBox(
+                  height: 3,
+                ),
                 const Text(
                   'Welcome To Your Heath Dashboard',
                   style: TextStyle(
                       color: MyColor.themeTealBlue,
                       fontSize: 12.0,
-                      fontFamily: 'poppins_regular'
-                  ),
+                      fontFamily: 'poppins_regular'),
                 )
-
               ],
             ),
           ),
-
           Expanded(
             flex: 1,
             child: Image(
@@ -235,8 +226,7 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
       width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: MyColor.teal50
-      ),
+          color: MyColor.teal50),
       child: Row(
         children: [
           Expanded(
@@ -244,21 +234,21 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
               decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
-                  color: Colors.white
-              ),
-              child: getCount(totalAppointmentIc, 'All Appointments'),),
+                  color: Colors.white),
+              child: getCount(totalAppointmentIc, 'All Appointments'),
+            ),
           ),
-
-          const SizedBox(width: 10,),
-
+          const SizedBox(
+            width: 10,
+          ),
           Expanded(
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
               decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
-                  color: Colors.white
-              ),
-              child: getCount(totalDoctorIc, 'Doctors'),),
+                  color: Colors.white),
+              child: getCount(totalDoctorIc, 'Doctors'),
+            ),
           ),
         ],
       ),
@@ -269,41 +259,47 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
   ///
   ///
   getCount(AssetImage image, String label) {
-
     return InkWell(
-      onTap: (){
-        if(label == 'All Appointments'){
-          Get.to(() =>  BeneficiaryAppointmentsScreen(callFrom: 'Dashboard',));
-
-        }else{
-          Get.to(() => BeneficiaryDoctorsScreen(searchText: '',fromHome: 'true',));
+      onTap: () {
+        if (label == 'All Appointments') {
+          Get.to(() => BeneficiaryAppointmentsScreen(
+                callFrom: 'Dashboard',
+              ));
+        } else {
+          Get.to(() => BeneficiaryDoctorsScreen(
+                searchText: '',
+                fromHome: 'true',
+              ));
         }
       },
       child: Row(
         children: [
-          Image(image: image, height: 35, width: 35,),
-
-          const SizedBox(width: 5,),
+          Image(
+            image: image,
+            height: 35,
+            width: 35,
+          ),
+          const SizedBox(
+            width: 5,
+          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               Text(
                 label,
                 style: const TextStyle(
-                  fontSize: 10,
-                  color: MyColor.themeTealBlue,
-                  fontFamily: 'poppins_medium'
-                ),
+                    fontSize: 10,
+                    color: MyColor.themeTealBlue,
+                    fontFamily: 'poppins_medium'),
               ),
-
               Text(
-                label == 'All Appointments'? getXController.appointmentCount.value : getXController.doctorCount.value,
+                label == 'All Appointments'
+                    ? getXController.appointmentCount.value
+                    : getXController.doctorCount.value,
                 style: const TextStyle(
                     fontSize: 17,
                     color: MyColor.themeTealBlue,
-                    fontFamily: 'poppins_semibold'
-                ),
+                    fontFamily: 'poppins_semibold'),
               ),
             ],
           )
@@ -318,23 +314,19 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
   getRecentAppointment() {
     return Expanded(
       child: ListView.builder(
-        itemCount: getXController.appointmentList.length,
-          itemBuilder: (context, index){
+          itemCount: getXController.appointmentList.length,
+          itemBuilder: (context, index) {
             return Card(
               child: Column(
-
-                  children: [
-                    getProviderData(index),
-
-                    getAppointmentData(index),
-
-                  ],
+                children: [
+                  getProviderData(index),
+                  getAppointmentData(index),
+                ],
               ),
             );
           }),
     );
   }
-
 
   ///*
   ///
@@ -351,26 +343,30 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
             width: 60,
             child: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(10)),
-              child: getXController.appointmentList[index].providerImage == null || getXController.appointmentList[index].providerImage!.isEmpty?
-                   Image(
-                image: noProfileImage,
-              )
-                  : Image.network('${ApiConstant.fileBaseUrl}${ApiConstant.profilePicFolder}${getXController.appointmentList[index].providerImage}',
-                  width: 80.0,
-                  height: 80.0,
-                  fit: BoxFit.fill,
-                  errorBuilder: (BuildContext context,
-                      Object exception, StackTrace? stackTrace) {
-                    return Image(
-                        image: noProfileImage,
-                        width: 80,
-                        height: 80,
-                        fit: BoxFit.fill);
-                  }),
+              child: getXController.appointmentList[index].providerImage ==
+                          null ||
+                      getXController
+                          .appointmentList[index].providerImage!.isEmpty
+                  ? Image(
+                      image: noProfileImage,
+                    )
+                  : Image.network(
+                      '${ApiConstant.fileBaseUrl}${ApiConstant.profilePicFolder}${getXController.appointmentList[index].providerImage}',
+                      width: 80.0,
+                      height: 80.0,
+                      fit: BoxFit.fill, errorBuilder: (BuildContext context,
+                          Object exception, StackTrace? stackTrace) {
+                      return Image(
+                          image: noProfileImage,
+                          width: 80,
+                          height: 80,
+                          fit: BoxFit.fill);
+                    }),
             ),
           ),
-
-          const SizedBox(width: 20.0,),
+          const SizedBox(
+            width: 20.0,
+          ),
           Expanded(
             flex: 2,
             child: Column(
@@ -395,41 +391,48 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
                         fontFamily: 'poppins_regular'),
                   ),
                 ),
-
                 Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.only(left: 5, right: 5, top: 3, bottom: 3),
-                      margin: const EdgeInsets.only(top: 5,),
+                      padding: const EdgeInsets.only(
+                          left: 5, right: 5, top: 3, bottom: 3),
+                      margin: const EdgeInsets.only(
+                        top: 5,
+                      ),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6),
-                          color: Colors.green
-                      ),
+                          color: Colors.green),
                       child: Text(
-                        getXController.appointmentList[index].appointmentTypeName!,
+                        getXController
+                            .appointmentList[index].appointmentTypeName!,
                         style: const TextStyle(
                             color: Colors.white,
                             fontFamily: 'poppins_semibold',
-                            fontSize: 10.0
-                        ),
+                            fontSize: 10.0),
                       ),
                     ),
-
                     Container(
-                      padding: const EdgeInsets.only(left: 5, right: 5, top: 3, bottom: 3),
+                      padding: const EdgeInsets.only(
+                          left: 5, right: 5, top: 3, bottom: 3),
                       margin: const EdgeInsets.only(top: 5, left: 10),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6),
-                          color: getXController.appointmentList[index].appointmentStatus! == 'Confirmed' ? MyColor.themeTealBlue :
-                                 getXController.appointmentList[index].appointmentStatus! == 'Complete' ? Colors.green : MyColor.redBrown
-                      ),
+                          color: getXController.appointmentList[index]
+                                      .appointmentStatus! ==
+                                  'Confirmed'
+                              ? MyColor.themeTealBlue
+                              : getXController.appointmentList[index]
+                                          .appointmentStatus! ==
+                                      'Complete'
+                                  ? Colors.green
+                                  : MyColor.redBrown),
                       child: Text(
-                        getXController.appointmentList[index].appointmentStatus!,
+                        getXController
+                            .appointmentList[index].appointmentStatus!,
                         style: const TextStyle(
                             color: Colors.white,
                             fontFamily: 'poppins_semibold',
-                            fontSize: 10.0
-                        ),
+                            fontSize: 10.0),
                       ),
                     ),
                   ],
@@ -437,53 +440,64 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
               ],
             ),
           ),
-
           Row(
             children: [
-              getXController.appointmentList[index].appointmentTypeName == 'Online'?
-              InkWell(
-                onTap: (){
-                  compairTime(index); //compare appointment time with current time before video call
-                  // getXController.getTwilioAccessTokenResponse(getXController.appointmentList[index].id!);
-                },
-                child: Container(
-                    height: 30,
-                    width: 30,
-                    padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        border: Border.all(color: Colors.black,)
-                    ),
-                    child: const Icon(Icons.call, size: 20,)),
-              ): const SizedBox(),
-
-
+              getXController.appointmentList[index].appointmentTypeName ==
+                      'Online'
+                  ? InkWell(
+                      onTap: () {
+                        compairTime(
+                            index); //compare appointment time with current time before video call
+                        // getXController.getTwilioAccessTokenResponse(getXController.appointmentList[index].id!);
+                      },
+                      child: Container(
+                          height: 30,
+                          width: 30,
+                          padding: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              border: Border.all(
+                                color: Colors.black,
+                              )),
+                          child: const Icon(
+                            Icons.call,
+                            size: 20,
+                          )),
+                    )
+                  : const SizedBox(),
               PopupMenuButton(
                   padding: EdgeInsets.zero,
-                  icon: const Icon(Icons.more_vert, color: Colors.black,),
+                  icon: const Icon(
+                    Icons.more_vert,
+                    color: Colors.black,
+                  ),
                   // add this line
                   itemBuilder: (_) => <PopupMenuItem<String>>[
-                    getXController.appointmentList[index].appointmentStatus != 'Cancelled'? const PopupMenuItem<String>(
-                        padding: EdgeInsets.only(left: 10),
-                        value: 'Cancel',
-                        child: Text(
-                          "Cancel",
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontFamily: 'popins_regular',
-                          ),
-                        ))   :const PopupMenuItem(child: SizedBox()),
-                    const PopupMenuItem<String>(
-                        padding: EdgeInsets.only(left: 10),
-                        value: 'View Medical History',
-                        child: Text(
-                          "View Medical History",
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontFamily: 'popins_regular',
-                          ),
-                        )),
-                  ],
+                        getXController
+                                    .appointmentList[index].appointmentStatus !=
+                                'Cancelled'
+                            ? const PopupMenuItem<String>(
+                                padding: EdgeInsets.only(left: 10),
+                                value: 'Cancel',
+                                child: Text(
+                                  "Cancel",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontFamily: 'popins_regular',
+                                  ),
+                                ))
+                            : const PopupMenuItem(child: SizedBox()),
+                        const PopupMenuItem<String>(
+                            padding: EdgeInsets.only(left: 10),
+                            value: 'View Medical History',
+                            child: Text(
+                              "View Medical History",
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontFamily: 'popins_regular',
+                              ),
+                            )),
+                      ],
                   onSelected: (value) {
                     switch (value) {
                       case 'Cancel':
@@ -495,13 +509,14 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
                         });*/
                         break;
                       case 'View Medical History':
-                        Get.to(() => BeneficiaryViewMedicalHistoryScreen(appointmentData: getXController.appointmentList[index]));
+                        Get.to(() => BeneficiaryViewMedicalHistoryScreen(
+                            appointmentData:
+                                getXController.appointmentList[index]));
                         break;
                     }
                   })
             ],
           )
-
         ],
       ),
     );
@@ -511,7 +526,6 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
   ///
   ///
   getAppointmentData(int index) {
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: Column(
@@ -523,8 +537,13 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
               Expanded(
                 child: ListTile(
                   contentPadding: EdgeInsets.zero,
-                  visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
-                  leading: const Icon(Icons.calendar_today, color: Colors.green, size:18,),
+                  visualDensity:
+                      const VisualDensity(horizontal: 0, vertical: -4),
+                  leading: const Icon(
+                    Icons.calendar_today,
+                    color: Colors.green,
+                    size: 18,
+                  ),
                   title: Transform.translate(
                     offset: const Offset(-35, 0),
                     child: const Text(
@@ -532,29 +551,33 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
                       style: TextStyle(
                           fontSize: 11,
                           color: MyColor.themeTealBlue,
-                          fontFamily: 'poppins_medium'
-                      ),),
+                          fontFamily: 'poppins_medium'),
+                    ),
                   ),
                   subtitle: Transform.translate(
-                    offset: const Offset(-35,0),
+                    offset: const Offset(-35, 0),
                     child: Text(
-                        getXController.appointmentList[index].tentativeAppointmentDate!,
+                      getXController
+                          .appointmentList[index].tentativeAppointmentDate!,
                       style: const TextStyle(
                           fontSize: 10,
                           color: MyColor.themeTealBlue,
-                          fontFamily: 'poppins_regular'
-                      ),),
+                          fontFamily: 'poppins_regular'),
+                    ),
                   ),
                 ),
               ),
-
-
               Expanded(
                 child: Container(
                   child: ListTile(
                     contentPadding: EdgeInsets.zero,
-                    visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
-                    leading: const Icon(Icons.access_time, color: Colors.deepOrange, size:18,),
+                    visualDensity:
+                        const VisualDensity(horizontal: 0, vertical: -4),
+                    leading: const Icon(
+                      Icons.access_time,
+                      color: Colors.deepOrange,
+                      size: 18,
+                    ),
                     title: Transform.translate(
                       offset: const Offset(-35, 0),
                       child: const Text(
@@ -562,8 +585,8 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
                         style: TextStyle(
                             fontSize: 11,
                             color: MyColor.themeTealBlue,
-                            fontFamily: 'poppins_medium'
-                        ),),
+                            fontFamily: 'poppins_medium'),
+                      ),
                     ),
                     subtitle: Transform.translate(
                       offset: const Offset(-35, 0),
@@ -572,23 +595,26 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
                         style: const TextStyle(
                             fontSize: 10,
                             color: MyColor.themeTealBlue,
-                            fontFamily: 'poppins_regular'
-                        ),),
+                            fontFamily: 'poppins_regular'),
+                      ),
                     ),
                   ),
                 ),
               ),
             ],
           ),
-
-
           Row(
             children: [
               Expanded(
                 child: ListTile(
-                  visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+                  visualDensity:
+                      const VisualDensity(horizontal: 0, vertical: -4),
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.person_pin_rounded, color: Colors.orangeAccent, size:18,),
+                  leading: const Icon(
+                    Icons.person_pin_rounded,
+                    color: Colors.orangeAccent,
+                    size: 18,
+                  ),
                   title: Transform.translate(
                     offset: const Offset(-35, 0),
                     child: const Text(
@@ -596,29 +622,32 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
                       style: TextStyle(
                           fontSize: 11,
                           color: MyColor.themeTealBlue,
-                          fontFamily: 'poppins_medium'
-                      ),),
+                          fontFamily: 'poppins_medium'),
+                    ),
                   ),
                   subtitle: Transform.translate(
                     offset: const Offset(-35, 0),
                     child: Text(
-                     getXController.appointmentList[index].patientName!,
+                      getXController.appointmentList[index].patientName!,
                       style: const TextStyle(
                           fontSize: 10,
                           color: MyColor.themeTealBlue,
-                          fontFamily: 'poppins_regular'
-                      ),),
+                          fontFamily: 'poppins_regular'),
+                    ),
                   ),
                 ),
               ),
-
-
               Expanded(
                 child: Container(
                   child: ListTile(
-                    visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+                    visualDensity:
+                        const VisualDensity(horizontal: 0, vertical: -4),
                     contentPadding: EdgeInsets.zero,
-                    leading: const Icon(Icons.account_balance_wallet, color: Colors.purple, size:18,),
+                    leading: const Icon(
+                      Icons.account_balance_wallet,
+                      color: Colors.purple,
+                      size: 18,
+                    ),
                     title: Transform.translate(
                       offset: const Offset(-35, 0),
                       child: const Text(
@@ -626,8 +655,8 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
                         style: TextStyle(
                             fontSize: 11,
                             color: MyColor.themeTealBlue,
-                            fontFamily: 'poppins_medium'
-                        ),),
+                            fontFamily: 'poppins_medium'),
+                      ),
                     ),
                     subtitle: Transform.translate(
                       offset: const Offset(-35, 0),
@@ -636,19 +665,22 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
                         style: const TextStyle(
                             fontSize: 10,
                             color: MyColor.themeTealBlue,
-                            fontFamily: 'poppins_regular'
-                        ),),
+                            fontFamily: 'poppins_regular'),
+                      ),
                     ),
                   ),
                 ),
               ),
             ],
           ),
-
           ListTile(
             visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
             contentPadding: EdgeInsets.zero,
-            leading: const Icon(Icons.home_outlined, color: Colors.redAccent, size:18,),
+            leading: const Icon(
+              Icons.home_outlined,
+              color: Colors.redAccent,
+              size: 18,
+            ),
             title: Transform.translate(
               offset: const Offset(-35, 0),
               child: const Text(
@@ -656,8 +688,8 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
                 style: TextStyle(
                     fontSize: 11,
                     color: MyColor.themeTealBlue,
-                    fontFamily: 'poppins_medium'
-                ),),
+                    fontFamily: 'poppins_medium'),
+              ),
             ),
             subtitle: Transform.translate(
               offset: const Offset(-35, 0),
@@ -666,8 +698,8 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
                 style: const TextStyle(
                     fontSize: 10,
                     color: MyColor.themeTealBlue,
-                    fontFamily: 'poppins_regular'
-                ),),
+                    fontFamily: 'poppins_regular'),
+              ),
             ),
           ),
         ],
@@ -678,16 +710,13 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
   ///*
   ///
   ///
-  showDetails(int index){
+  showDetails(int index) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {
           return getAppointmentDetail(index);
         });
-
-
   }
-
 
   ///*
   ///
@@ -698,11 +727,7 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            getProviderData(index),
-
-            getTotalAmountDetail(index)
-          ],
+          children: [getProviderData(index), getTotalAmountDetail(index)],
         ),
       ),
     );
@@ -714,16 +739,15 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
   getTotalAmountDetail(int index) {
     return Column(
       children: [
-        getRowData('Booking Date', getXController.appointmentList[index].bookingDate),
-
-        getRowData('Appointment D/T', getXController.appointmentList[index].schedule!),
-
+        getRowData(
+            'Booking Date', getXController.appointmentList[index].bookingDate),
+        getRowData(
+            'Appointment D/T', getXController.appointmentList[index].schedule!),
         getRowData('Status', getXController.appointmentList[index].status),
-
-        getRowData('Place', getXController.appointmentList[index].clinicAddress!),
-
-        getRowData('Total Amount \n( Doctor + Service Charge )', getXController.appointmentList[index].paidAmount.toString()),
-
+        getRowData(
+            'Place', getXController.appointmentList[index].clinicAddress!),
+        getRowData('Total Amount \n( Doctor + Service Charge )',
+            getXController.appointmentList[index].paidAmount.toString()),
       ],
     );
   }
@@ -742,16 +766,15 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
             style: const TextStyle(
                 fontSize: 13,
                 color: MyColor.themeTealBlue,
-                fontFamily: 'poppins_medium'
-            ),),
-
+                fontFamily: 'poppins_medium'),
+          ),
           Text(
-            value == null ? '': value,
+            value ?? '',
             style: const TextStyle(
                 fontSize: 10,
                 color: MyColor.themeTealBlue,
-                fontFamily: 'poppins_regular'
-            ),),
+                fontFamily: 'poppins_regular'),
+          ),
         ],
       ),
     );
@@ -761,58 +784,58 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
   ///
   ///
   void compairTime(int index) {
-
     DateTime nowTime = DateTime.now();
 
     log('DATE_TIME ${nowTime.toString()}');
 
-    String appointmentDate = getXController.appointmentList[index].tentativeAppointmentDate!;
+    String appointmentDate =
+        getXController.appointmentList[index].tentativeAppointmentDate!;
 
-    if(appointmentDate == 'Today'){
+    if (appointmentDate == 'Today') {
       appointmentDate = '${nowTime.year}-${nowTime.month}-${nowTime.day}';
-    }else {
+    } else {
       appointmentDate = getFormattedDate(appointmentDate);
       log('FormatedAppDate $appointmentDate');
     }
 
-    DateTime fromTime = DateFormat("yyyy-MM-dd hh:mm:ss").parse("$appointmentDate ${getXController.appointmentList[index].scheduleStartTime!}"); //10am
-    DateTime toTime = DateFormat("yyyy-MM-dd hh:mm:ss").parse("$appointmentDate ${getXController.appointmentList[index].scheduleEndTime!}"); //10am
+    DateTime fromTime = DateFormat("yyyy-MM-dd hh:mm:ss").parse(
+        "$appointmentDate ${getXController.appointmentList[index].scheduleStartTime!}"); //10am
+    DateTime toTime = DateFormat("yyyy-MM-dd hh:mm:ss").parse(
+        "$appointmentDate ${getXController.appointmentList[index].scheduleEndTime!}"); //10am
 
-
-    if(nowTime == fromTime || (nowTime.isAfter(fromTime) && nowTime.isBefore(toTime))){
-
+    if (nowTime == fromTime ||
+        (nowTime.isAfter(fromTime) && nowTime.isBefore(toTime))) {
       //get token using api to make video call
-      getXController.getTwilioAccessTokenResponse(getXController.appointmentList[index].id!);
-
-    }else if(nowTime.isBefore(fromTime)){
+      getXController.getTwilioAccessTokenResponse(
+          getXController.appointmentList[index].id!);
+    } else if (nowTime.isBefore(fromTime)) {
       log('Check Schedule');
-      showDialog(context: context,
-          builder: (BuildContext context){
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
             return OKDialog(
                 title: '',
                 descriptions: 'Please check Appointment Schedule',
                 img: errorImage);
           });
-
-    }else if(nowTime.isAfter(toTime)){
-      log('Appointment schedule is over, you can'+"'"+'t call your Doctor ');
-      showDialog(context: context,
-          builder: (BuildContext context){
+    } else if (nowTime.isAfter(toTime)) {
+      log('Appointment schedule is over, you can' "'" + 't call your Doctor ');
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
             return OKDialog(
                 title: '',
-                descriptions: 'Appointment schedule is over, you can'+"'"+'t call your Doctor',
+                descriptions: 'Appointment schedule is over, you can' "'" +
+                    't call your Doctor',
                 img: errorImage);
           });
     }
-
-
   }
 
   ///*
   ///
   ///
   String getFormattedDate(String appointmentDate) {
-
     DateFormat fromDateFormatter = DateFormat('dd MMM yyyy');
     DateFormat toDateFormatter = DateFormat('yyyy-MM-dd');
 
@@ -820,18 +843,17 @@ class _BeneficiryDashboardScreenState extends State<BeneficiaryDashboardScreen> 
 
     List<String> validadeSplit = appointmentDate.split(' ');
 
-    if(validadeSplit.length > 1)
-    {
+    if (validadeSplit.length > 1) {
       int day = int.parse(validadeSplit[0].toString());
       String month = validadeSplit[1];
       int year = int.parse(validadeSplit[2].toString());
 
-      String date = '$day $month $year'; //this format should be same as fromDateFormat
+      String date =
+          '$day $month $year'; //this format should be same as fromDateFormat
 
       DateTime appointmentDateTime = fromDateFormatter.parse(date);
       newDate = toDateFormatter.format(appointmentDateTime);
     }
     return newDate;
   }
-
 }

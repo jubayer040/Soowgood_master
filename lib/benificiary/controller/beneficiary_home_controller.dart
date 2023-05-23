@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:soowgood/benificiary/model/request/beneficiary_providers_request.dart';
 import 'package:soowgood/benificiary/model/request/beneficiary_search_providers_request.dart';
-import 'package:soowgood/benificiary/model/response/beneficiary_providers_response.dart';
 import 'package:soowgood/benificiary/model/response/beneficiary_search_providers_response.dart';
 import 'package:soowgood/benificiary/model/response/beneficiary_specialization_response.dart';
 import 'package:soowgood/benificiary/repository/beneficiary_repository.dart';
@@ -12,11 +10,10 @@ import 'package:soowgood/common/model/request/notification_list_request.dart';
 import 'package:soowgood/common/model/response/notification_list_response.dart';
 import 'package:soowgood/provider/repository/provider_repository.dart';
 
-class BeneficiaryHomeController extends GetxController{
-
+class BeneficiaryHomeController extends GetxController {
   BeneficiaryRepository repository = BeneficiaryRepository();
 
-  late Function refreshPage;
+  // late Function refreshPage;
 
   var providerList = <BeneficiarySearchProvidersResponse>[].obs;
   var specializationList = <BeneficiarySpecializationResponse>[];
@@ -29,8 +26,7 @@ class BeneficiaryHomeController extends GetxController{
   ///
   /// get Searches/GlobalSearch api reponse
   /// to get Providers list
-  void getProvidersResponse() async{
-
+  Future<void> getProvidersResponse() async {
     /*BeneficiaryProvidersRequest requestModel = BeneficiaryProvidersRequest();
     requestModel.userRole = 'Provider';
 
@@ -45,7 +41,8 @@ class BeneficiaryHomeController extends GetxController{
       refreshPage.call();
     }*/
 
-    BeneficiarySearchProvidersRequest requestModel = BeneficiarySearchProvidersRequest();
+    BeneficiarySearchProvidersRequest requestModel =
+        BeneficiarySearchProvidersRequest();
     requestModel.gender = "";
     requestModel.appointmentType = "";
     requestModel.availability = "";
@@ -55,24 +52,21 @@ class BeneficiaryHomeController extends GetxController{
     requestModel.dayStartingTime = "2003-12-31T12:00:00.000Z";
     requestModel.location = "";
     requestModel.pageNumber = 0;
-    requestModel.pageSize = 1000;
+    requestModel.pageSize = 8; // number of items
     requestModel.providerType = "";
     requestModel.searchKeyword = "";
     requestModel.serviceType = "";
 
+    List<BeneficiarySearchProvidersResponse>? responseModel =
+        await repository.hitSearchProvidersApi(requestModel);
 
-    List<BeneficiarySearchProvidersResponse>? responseModel = await repository.hitSearchProvidersApi(requestModel);
-
-    if(responseModel != null && responseModel.isNotEmpty){
+    if (responseModel != null && responseModel.isNotEmpty) {
       providerList.clear();
       providerList.value = responseModel;
-    }else{
+    } else {
       providerList.clear();
     }
-
   }
-
-
 
   ProviderRepository repository2 = ProviderRepository();
   var notificationList = <NotificationListResponse>[].obs;
@@ -80,14 +74,14 @@ class BeneficiaryHomeController extends GetxController{
   ///*
   ///
   /// get Dashboard/getNotification Api Response to show Unread notification count on HomeScreen
-  void getNotificationListResponse() async{
-
+  Future<void> getNotificationListResponse() async {
     NotificationListRequest requestModel = NotificationListRequest();
     requestModel.id = MySharedPreference.getString(KeyConstants.keyUserId);
 
-    List<NotificationListResponse>? responseModel = await repository2.hitGetNotificationListApi(requestModel);
+    List<NotificationListResponse>? responseModel =
+        await repository2.hitGetNotificationListApi(requestModel);
 
-    if(responseModel != null && responseModel.isNotEmpty){
+    if (responseModel != null && responseModel.isNotEmpty) {
       var unreadList = <NotificationListResponse>[];
       for (NotificationListResponse data in responseModel) {
         if (data.isread! == 0) {
@@ -95,9 +89,8 @@ class BeneficiaryHomeController extends GetxController{
         }
       }
       notiCount.value = unreadList.length;
-    }else{
+    } else {
       notiCount.value = 0;
     }
   }
-
 }
